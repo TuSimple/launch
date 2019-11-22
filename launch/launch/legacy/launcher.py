@@ -386,7 +386,7 @@ class DefaultLauncher:
         p = process_descriptor
 
         with self.print_mutex:
-            print('(%s)' % p.name, message)
+            print('(%s)' % p.name, message.replace("'","").replace(",",""))
         lines = (message + '\n').encode()
         if 'output_handler' in dir(p):
             p.output_handler.on_message_received(lines)
