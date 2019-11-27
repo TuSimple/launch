@@ -373,7 +373,7 @@ class DefaultLauncher:
             output_handler_description = 'stderr > stdout, ' + output_handler_description
 
         self._process_message(
-            p, 'pid %d: %s (%s)' % (transport.get_pid(), p.cmd, output_handler_description))
+            p, 'pid %d: %s (%s)' % (transport.get_pid(), str(p.cmd).replace("'","").replace(",",""), output_handler_description))
 
     def _close_process(self, process_descriptor):
         p = process_descriptor
@@ -386,7 +386,7 @@ class DefaultLauncher:
         p = process_descriptor
 
         with self.print_mutex:
-            print('(%s)' % p.name, message.replace("'","").replace(",",""))
+            print('(%s)' % p.name, message)
         lines = (message + '\n').encode()
         if 'output_handler' in dir(p):
             p.output_handler.on_message_received(lines)
